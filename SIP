@@ -1,0 +1,58 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author DANIL
+ */
+import java.awt.*; 
+import java.awt.event.*; 
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+//deklarasi class
+
+public class SIP extends JWindow {
+ private Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+private JLabel labelLogo = new JLabel(new ImageIcon("gambar/ic_polije_3.png"));
+private JProgressBar barisProgress = new JProgressBar();
+private int time = 0;
+private Timer timer;
+public SIP() {
+Color warna = Color.BLUE;
+barisProgress.setValue(0);
+barisProgress.setPreferredSize(new Dimension(100, 15));
+barisProgress.setBackground(Color.WHITE);
+barisProgress.setForeground(Color.RED);
+barisProgress.setStringPainted(true);
+barisProgress.setBorder(new LineBorder(warna, 2));
+labelLogo.setBorder(new LineBorder(Color.GREEN, 2));
+//letakkan objek ke container
+getContentPane().add(labelLogo, BorderLayout.NORTH);
+getContentPane().add(barisProgress, BorderLayout.CENTER);
+timer = new Timer(50, new ActionListener() {
+@Override
+public void actionPerformed(ActionEvent e) {
+time++;
+barisProgress.setValue(time);
+if (barisProgress.getPercentComplete() == 1.0) {
+timer.stop();
+setVisible(false);
+dispose();
+}
+}
+});
+timer.start();
+//menempatkan objek ke memori sebelum ditampilkan
+pack();
+//atur window ditengah layar
+//setLocation(dimension.width/2-getWidth()/2, dimension.height/2-getHeight()/2);
+setLocationRelativeTo(null);
+setVisible(true);
+}
+public static void main(String[] args) {
+new SIP();
+}
+}
